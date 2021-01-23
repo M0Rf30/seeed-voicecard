@@ -158,7 +158,6 @@ install_module "./" "seeed-voicecard"
 
 
 # install dtbos
-cp seeed-2mic-voicecard.dtbo $OVERLAYS
 cp seeed-4mic-voicecard.dtbo $OVERLAYS
 cp seeed-8mic-voicecard.dtbo $OVERLAYS
 
@@ -172,8 +171,6 @@ grep -q "^snd-soc-seeed-voicecard$" /etc/modules || \
   echo "snd-soc-seeed-voicecard" >> /etc/modules
 grep -q "^snd-soc-ac108$" /etc/modules || \
   echo "snd-soc-ac108" >> /etc/modules
-grep -q "^snd-soc-wm8960$" /etc/modules || \
-  echo "snd-soc-wm8960" >> /etc/modules  
 
 #set dtoverlays
 CONFIG=/boot/config.txt

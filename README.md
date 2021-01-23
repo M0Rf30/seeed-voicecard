@@ -2,7 +2,7 @@
 
 [![Join the chat at https://gitter.im/seeed-voicecard/Lobby](https://badges.gitter.im/seeed-voicecard/Lobby.svg)](https://gitter.im/seeed-voicecard/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-The drivers of [ReSpeaker Mic Hat](https://www.seeedstudio.com/ReSpeaker-2-Mics-Pi-HAT-p-2874.html),[ReSpeaker 4 Mic Array](https://www.seeedstudio.com/ReSpeaker-4-Mic-Array-for-Raspberry-Pi-p-2941.html),[6-Mics Circular Array Kit](), and [4-Mics Linear Array Kit]() for Raspberry Pi.
+The drivers of [ReSpeaker 4 Mic Array](https://www.seeedstudio.com/ReSpeaker-4-Mic-Array-for-Raspberry-Pi-p-2941.html),[6-Mics Circular Array Kit](), and [4-Mics Linear Array Kit]() for Raspberry Pi.
 
 ### Install seeed-voicecard
 Get the seeed voice card source code. and install all linux kernel drivers
@@ -13,48 +13,6 @@ sudo ./install.sh
 sudo reboot
 ```
 It may probably happen that the driver won't compile with the latest kernel when raspbian rolls out new patches to the kernel. If so, please try `sudo ./install.sh --compat-kernel` which uses an older kernel but ensures that the driver can work. 
-
-## ReSpeaker Mic Hat
-
-[![](https://github.com/SeeedDocument/MIC_HATv1.0_for_raspberrypi/blob/master/img/mic_hatv1.0.png?raw=true)](https://www.seeedstudio.com/ReSpeaker-2-Mics-Pi-HAT-p-2874.html)
-
-While the upstream wm8960 codec is not currently supported by current Pi kernel builds, upstream wm8960 has some bugs, we had fixed it. we must it build manually.
-
-Check that the sound card name matches the source code seeed-voicecard.
-
-```bash
-#for ReSpeaker 2-mic
-pi@raspberrypi:~/seeed-voicecard $ aplay -l
-**** List of PLAYBACK Hardware Devices ****
-card 0: ALSA [bcm2835 ALSA], device 0: bcm2835 ALSA [bcm2835 ALSA]
-  Subdevices: 8/8
-  Subdevice #0: subdevice #0
-  Subdevice #1: subdevice #1
-  Subdevice #2: subdevice #2
-  Subdevice #3: subdevice #3
-  Subdevice #4: subdevice #4
-  Subdevice #5: subdevice #5
-  Subdevice #6: subdevice #6
-  Subdevice #7: subdevice #7
-card 0: ALSA [bcm2835 ALSA], device 1: bcm2835 ALSA [bcm2835 IEC958/HDMI]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: seeed2micvoicec [seeed-2mic-voicecard], device 0: bcm2835-i2s-wm8960-hifi wm8960-hifi-0 []
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-pi@raspberrypi:~/seeed-voicecard $ arecord -l
-**** List of CAPTURE Hardware Devices ****
-card 1: seeed2micvoicec [seeed-2mic-voicecard], device 0: bcm2835-i2s-wm8960-hifi wm8960-hifi-0 []
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-pi@raspberrypi:~/seeed-voicecard $ 
-```
-If you want to change the alsa settings, You can use `sudo alsactl --file=/etc/voicecard/wm8960_asound.state  store` to save it.
-
-
-
-#### Next step
-Go to https://github.com/respeaker/mic_hat to build voice enabled projects with Google Assistant SDK or Alexa Voice Service.
 
 ## ReSpeaker 4 Mic Array
 
@@ -208,14 +166,8 @@ the difference is only first 4 input channels are valid capture data.
 #or
   arecord -l
 # Find the line in the command output which near below form:
-card 1: seeed2micvoicec [seeed-2mic-voicecard], device 0: ...
+card 1: seeed4micvoicec [seeed-4mic-voicecard], device 0: ...
 # The number between first word `card` and char `:` is the Sound Card Number, here it's 1.
-```
-
-```bash
-#for ReSpeaker 2-mic
-#It will capture sound an playback on hw:1
-arecord -f cd -Dhw:1 | aplay -Dhw:1
 ```
 
 ```bash
